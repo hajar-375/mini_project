@@ -1,15 +1,18 @@
 <?php
+session_start();
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Redirect to login if not authenticated
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
 
-$host = 'localhost';        // Adresse du serveur MySQL
-$dbname = 'gestion_produits'; // Nom de la base de données
-$username = 'root';         // Nom d'utilisateur MySQL
-$password = '';             // Mot de passe MySQL
+// Database connection
+$host = 'localhost';
+$dbname = 'gestion_produits';
+$username = 'root';
+$password = '';
 
-// Connexion à la base de données
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -17,44 +20,48 @@ try {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
 
-// Ajouter un produit
+// Initialize variables
+$search = $_GET['search'] ?? '';
+$produits = [];
+
+// Fetch products
+function getProduits($pdo, $search = '') {
+    if ($search) {
+        $stmt = $pdo->prepare("SELECT * FROM produits WHERE nom LIKE ? OR description LIKE ?");
+        $stmt->execute(["%$search%", "%$search%"]);
+    } else {
+        $stmt = $pdo->query("SELECT * FROM produits ORDER BY date_ajout DESC");
+    }
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Add a product
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'ajouter') {
     $nom = $_POST['nom'] ?? '';
     $description = $_POST['description'] ?? '';
     $prix = $_POST['prix'] ?? 0;
 
-    if ($nom && $description && $prix >= 0) {
-        $stmt = $pdo->prepare("INSERT INTO produits (nom, description, prix) VALUES (:nom, :description, :prix)");
-        $stmt->execute([
-            'nom' => $nom,
-            'description' => $description,
-            'prix' => floatval($prix)
-        ]);
+    if ($nom && $description && is_numeric($prix) && $prix > 0) {
+        $stmt = $pdo->prepare("INSERT INTO produits (nom, description, prix) VALUES (?, ?, ?)");
+        $stmt->execute([$nom, $description, $prix]);
+        header('Location: index.php');
+        exit;
+    } else {
+        die("Tous les champs sont obligatoires et le prix doit être un nombre positif.");
     }
-
-    header('Location: index.php');
-    exit;
 }
 
-// Supprimer un produit
+// Delete a product
 if (isset($_GET['supprimer'])) {
     $id = (int)$_GET['supprimer'];
-    $stmt = $pdo->prepare("DELETE FROM produits WHERE id = :id");
-    $stmt->execute(['id' => $id]);
-
+    $stmt = $pdo->prepare("DELETE FROM produits WHERE id = ?");
+    $stmt->execute([$id]);
     header('Location: index.php');
     exit;
 }
 
-// Recherche de produits
-$search = $_GET['search'] ?? '';
-if ($search) {
-    $stmt = $pdo->prepare("SELECT * FROM produits WHERE nom LIKE :search OR description LIKE :search");
-    $stmt->execute(['search' => '%' . $search . '%']);
-    $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} else {
-    $produits = $pdo->query("SELECT * FROM produits")->fetchAll(PDO::FETCH_ASSOC);
-}
+// Search for products
+$produits = getProduits($pdo, $search);
 ?>
 
 <!DOCTYPE html>
@@ -62,13 +69,25 @@ if ($search) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion de Produits</title>
+    <title>Gestion des Produits</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Gestion de Produits</h1>
+    <h1>Gestion des Produits</h1>
+    <p>Connecté en tant que : <?php echo htmlspecialchars($_SESSION['username']); ?> 
+        | <a href="index.php?logout=true">Déconnexion</a>
+    </p>
 
-    <!-- Formulaire d'ajout -->
+    <?php
+    // Logout logic
+    if (isset($_GET['logout'])) {
+        session_destroy();
+        header('Location: login.php');
+        exit;
+    }
+    ?>
+
+    <!-- Add Product Form -->
     <h2>Ajouter un Produit</h2>
     <form method="POST" action="index.php">
         <input type="hidden" name="action" value="ajouter">
@@ -84,7 +103,7 @@ if ($search) {
         <button type="submit">Ajouter</button>
     </form>
 
-    <!-- Formulaire de recherche -->
+    <!-- Search Form -->
     <h2>Rechercher un Produit</h2>
     <form method="GET" action="index.php">
         <label for="search">Rechercher :</label>
@@ -92,7 +111,7 @@ if ($search) {
         <button type="submit">Rechercher</button>
     </form>
 
-    <!-- Liste des produits -->
+    <!-- Product List -->
     <h2>Liste des Produits</h2>
     <?php if (empty($produits)): ?>
         <p>Aucun produit trouvé.</p>
