@@ -9,31 +9,19 @@ body {
 }
 
 /* Container */
-
-#hb {
-
-    color: #4c73ae;
-  
-
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+h1, h2 {
     text-align: center;
+    color: #444;
 }
 
-
-
-
-
-
-
+h1 {
+    margin-top: 20px;
+    font-size: 2.5rem;
+}
 
 h2 {
     margin-top: 20px;
     font-size: 1.8rem;
-    color: #000;
 }
 
 form {
@@ -146,5 +134,3 @@ p {
         font-size: 0.9rem;
     }
 }
-
-

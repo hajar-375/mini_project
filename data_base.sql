@@ -1,9 +1,5 @@
-CREATE DATABASE gestion_produits;
-
-
-
-
-USE gestion_produits;
+CREATE DATABASE gestion_projet;
+USE gestion_projet;
 
 -- Table for products
 CREATE TABLE produits (
@@ -22,4 +18,4 @@ CREATE TABLE users (
 );
 
 -- Insert an example user (username: admin, password: password123)
-INSERT INTO users (username, password) VALUES ('admin', MD5('password123'));
+INSERT INTO users (username, password) VALUES ('admin', MD5('admin'));

@@ -1,15 +1,7 @@
 <?php
-session_start();
-
-// Redirect to login if not authenticated
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
-// Database connection
+// Connexion à la base de données
 $host = 'localhost';
-$dbname = 'gestion_produits';
+$dbname = 'gestion_projet';
 $username = 'root';
 $password = '';
 
@@ -20,11 +12,11 @@ try {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
 
-// Initialize variables
-$search = $_GET['search'] ?? '';
+// Initialisation des variables
 $produits = [];
+$search = '';
 
-// Fetch products
+// Fonction pour récupérer les produits
 function getProduits($pdo, $search = '') {
     if ($search) {
         $stmt = $pdo->prepare("SELECT * FROM produits WHERE nom LIKE ? OR description LIKE ?");
@@ -35,32 +27,37 @@ function getProduits($pdo, $search = '') {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Add a product
+// Ajouter un produit
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'ajouter') {
     $nom = $_POST['nom'] ?? '';
     $description = $_POST['description'] ?? '';
     $prix = $_POST['prix'] ?? 0;
 
+    // Validation des données
     if ($nom && $description && is_numeric($prix) && $prix > 0) {
+        // Insertion dans la base de données
         $stmt = $pdo->prepare("INSERT INTO produits (nom, description, prix) VALUES (?, ?, ?)");
         $stmt->execute([$nom, $description, $prix]);
-        header('Location: index.php');
+
+        header('Location: index.php'); // Redirige pour éviter la resoumission
         exit;
     } else {
         die("Tous les champs sont obligatoires et le prix doit être un nombre positif.");
     }
 }
 
-// Delete a product
+// Supprimer un produit
 if (isset($_GET['supprimer'])) {
     $id = (int)$_GET['supprimer'];
     $stmt = $pdo->prepare("DELETE FROM produits WHERE id = ?");
     $stmt->execute([$id]);
+
     header('Location: index.php');
     exit;
 }
 
-// Search for products
+// Rechercher un produit
+$search = $_GET['search'] ?? '';
 $produits = getProduits($pdo, $search);
 ?>
 
@@ -74,20 +71,8 @@ $produits = getProduits($pdo, $search);
 </head>
 <body>
     <h1>Gestion des Produits</h1>
-    <p>Connecté en tant que : <?php echo htmlspecialchars($_SESSION['username']); ?> 
-        | <a href="index.php?logout=true">Déconnexion</a>
-    </p>
 
-    <?php
-    // Logout logic
-    if (isset($_GET['logout'])) {
-        session_destroy();
-        header('Location: login.php');
-        exit;
-    }
-    ?>
-
-    <!-- Add Product Form -->
+    <!-- Formulaire d'ajout -->
     <h2>Ajouter un Produit</h2>
     <form method="POST" action="index.php">
         <input type="hidden" name="action" value="ajouter">
@@ -103,7 +88,7 @@ $produits = getProduits($pdo, $search);
         <button type="submit">Ajouter</button>
     </form>
 
-    <!-- Search Form -->
+    <!-- Formulaire de recherche -->
     <h2>Rechercher un Produit</h2>
     <form method="GET" action="index.php">
         <label for="search">Rechercher :</label>
@@ -111,7 +96,7 @@ $produits = getProduits($pdo, $search);
         <button type="submit">Rechercher</button>
     </form>
 
-    <!-- Product List -->
+    <!-- Liste des produits -->
     <h2>Liste des Produits</h2>
     <?php if (empty($produits)): ?>
         <p>Aucun produit trouvé.</p>
