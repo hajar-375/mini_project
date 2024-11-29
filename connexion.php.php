@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Configuration de la base de données (à personnaliser)
+// Configuration de la base de données
 $host = 'localhost';
 $dbname = 'gestion_projet';
 $username = 'root';
@@ -15,29 +15,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Récupération des données du formulaire
-        $username = trim($_POST['username']);
+        $email = trim($_POST['email']);
         $password = $_POST['password'];
 
         // Requête préparée pour vérifier les identifiants
-        $stmt = $pdo->prepare("SELECT id, username, password_hash FROM utilisateurs WHERE username = :username");
-        $stmt->execute(['username' => $username]);
+        $stmt = $pdo->prepare("SELECT id, email, password_hash, nom, prenom FROM utilisateurs WHERE email = :email");
+        $stmt->execute(['email' => $email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Vérification du mot de passe
         if ($user && password_verify($password, $user['password_hash'])) {
             // Connexion réussie
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['nom'] = $user['nom'];
+            $_SESSION['prenom'] = $user['prenom'];
             
             // Redirection vers la page d'accueil
             header('Location: dashboard.php');
             exit();
         } else {
-            $error_message = "Identifiants incorrects";
+            $error_message = "Adresse email ou mot de passe incorrect";
         }
     } catch (PDOException $e) {
         $error_message = "Erreur de connexion à la base de données";
-        // Log de l'erreur (à personnaliser)
         error_log($e->getMessage());
     }
 }
@@ -85,6 +86,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
             margin-bottom: 15px;
         }
+        .signup-link {
+            text-align: center;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -99,10 +104,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ?>
 
         <form method="post" action="">
-            <input type="text" name="email" placeholder="email d'utilisateur" required>
+            <input type="email" name="email" placeholder="Adresse email" required>
             <input type="password" name="password" placeholder="Mot de passe" required>
             <button type="submit">Se connecter</button>
         </form>
+
+        <div class="signup-link">
+            <p>Pas de compte ? <a href="inscription.php">Inscrivez-vous</a></p>
+        </div>
     </div>
 </body>
 </html>
