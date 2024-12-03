@@ -24,15 +24,18 @@
       Gestion des utilisateurs
       Suivi des ventes
       Personnalisation du sitE 
+
 🛠️ Technologies utilisées
       Interface utilisateur: HTML
       Arrière-plan:PHP
       Base de données :
+
 📋 Prérequis
       PHP >= 8.1
       Mon
       Serveur
       Navigateur Web
+
 ⚙️ Installation
     Cloner le dépôt
     
@@ -42,7 +45,8 @@
     git clone https://github.com/YourUsername/ClothingStore
   
   ``
-    Configurer la base de données
+  
+  Configurer la base de données
     
     Créer une base de données clothing_store.
     Importer le fichierclothing_store.sqldepuis la
@@ -61,6 +65,7 @@
     
     Boutique en ligne:http ://localhost//Vêtements
     Panneau d'administration:http ://localhost /Vêtements/admin
+
 💡 Améliorations possibles
     Recommandation basée sur l'IA:
     Blog intégré: Partie
