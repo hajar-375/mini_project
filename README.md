@@ -1,6 +1,9 @@
 🌐 Site : Vente en ligne 🛒💰
 
 🌟 Fonctionnalités principales:
+
+
+ 
   1:Côté client
       Enregistrement et connexion utilisateur
       Permanente
@@ -13,7 +16,7 @@
       Suivi des commandes
       Histoire
       Notifications et promotions
-
+      
 2:Côté Administration 
       Tableau de bord sécurisé
       Visualisation
