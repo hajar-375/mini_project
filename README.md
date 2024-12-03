@@ -72,14 +72,8 @@ Access control for admin pane
 
 🗂️ Project Structure
 
-HTDocs/
-├── mini_project/                  # Admin panel files
-├── index.php/            # Reusable PHP components
-├── login/                  # Stylesheets
-├── Database/                   # JavaScript files
-├── uploaded_img/         # Product images
-├── image1                 # Main PHP files
-└──image2         # Database file
+![image](https://github.com/user-attachments/assets/fb7c9595-260d-4978-9c43-991a7cf6b245)
+
 
 
 💡 Key Features Explained
