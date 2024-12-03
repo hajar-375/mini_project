@@ -5,6 +5,7 @@
 
  
   1:Côté client
+  
       Enregistrement et connexion utilisateur
       Permanente
       Parcourir les produits
@@ -18,6 +19,7 @@
       Notifications et promotions
       
 2:Côté Administration 
+
       Tableau de bord sécurisé
       Visualisation
       Gestion des produits
@@ -29,17 +31,20 @@
       Personnalisation du sitE 
 
 🛠️ Technologies utilisées
+
       Interface utilisateur: HTML
       Arrière-plan:PHP
       Base de données :
 
 📋 Prérequis
+
       PHP >= 8.1
       Mon
       Serveur
       Navigateur Web
 
 ⚙️ Installation
+
     Cloner le dépôt
     
     frapper
@@ -70,6 +75,7 @@
     Panneau d'administration:http ://localhost /Vêtements/admin
 
 💡 Améliorations possibles
+
     Recommandation basée sur l'IA:
     Blog intégré: Partie
     Application mobile
