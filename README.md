@@ -1,4 +1,4 @@
-🌐 Site E-Commerce : Vente en ligne 🛒💰
+🌐 Site : Vente en ligne 🛒💰
 
 🌟 Fonctionnalités principales:
   1:Côté client
