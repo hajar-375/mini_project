@@ -53,7 +53,8 @@ page login
 ![image3 png](https://github.com/user-attachments/assets/793c8082-1e28-4998-b903-6c3bd1cb8c83)
 
 midle page
-![Screenshot_3-12-2024_114854_localhost]
+![imag1 png](https://github.com/user-attachments/assets/6a7d0630-44f3-4d21-93dd-6543b07e6978)
+
 
 
 📞 CONTACT  and footer page
