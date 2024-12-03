@@ -1,6 +1,5 @@
 ![Screenshot_3-12-2024_114854_localhost](https://github.com/user-attachments/assets/7f2d132c-8575-40f0-bd59-1e0dec11c135)🍽️ Food Ordering System
 The JIRA ( Project / Modelisation diagrams / Sprints ) FOR MEMBERS 🔒: https://amkghizlane-1731656764726.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog
-
 A full-stack web application for product mangment, built with PHP and MySQL.
 
 
@@ -51,16 +50,19 @@ Access the application
 
 📱 Screenshots
 page login
+![image3 png](https://github.com/user-attachments/assets/793c8082-1e28-4998-b903-6c3bd1cb8c83)
 
 midle page
-![Screenshot_3-12-2024_114854_localhost](https://github.com/user-attachments/assets/53a8adc2-109e-4964-b430-ac3f43925518)
+![imag1 png](https://github.com/user-attachments/assets/3bdd1cc1-0e37-4a1e-bc90-bbe751d234c5)
 
-footer page
+
+
+
+
+📞 CONTACT  and footer page
 ![image](https://github.com/user-attachments/assets/d00591c0-b9d2-4793-8156-53cb12e84cdc)
 
-📞 CONTACT 
 
-![image](https://github.com/user-attachments/assets/d00591c0-b9d2-4793-8156-53cb12e84cdc)
 🔒 Security Features
 Password hashing using SHA1
 Input sanitization
