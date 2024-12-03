@@ -1,4 +1,4 @@
-![Screenshot_3-12-2024_114854_localhost](https://github.com/user-attachments/assets/7f2d132c-8575-40f0-bd59-1e0dec11c135)🍽️ Food Ordering System
+(https://github.com/user-attachments/assets/7f2d132c-8575-40f0-bd59-1e0dec11c135)🍽️ Food Ordering System
 The JIRA ( Project / Modelisation diagrams / Sprints ) FOR MEMBERS 🔒: https://amkghizlane-1731656764726.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog
 A full-stack web application for product mangment, built with PHP and MySQL.
 
@@ -53,10 +53,7 @@ page login
 ![image3 png](https://github.com/user-attachments/assets/793c8082-1e28-4998-b903-6c3bd1cb8c83)
 
 midle page
-![imag1 png](https://github.com/user-attachments/assets/3bdd1cc1-0e37-4a1e-bc90-bbe751d234c5)
-
-
-
+![Screenshot_3-12-2024_114854_localhost]
 
 
 📞 CONTACT  and footer page
