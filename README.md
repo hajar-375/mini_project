@@ -53,7 +53,8 @@ page login
 ![image3 png](https://github.com/user-attachments/assets/793c8082-1e28-4998-b903-6c3bd1cb8c83)
 
 midle page
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/7ea3a0b9-3f55-42e0-b207-73ae33ce6210)
+
 
 
 
