@@ -93,7 +93,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 👨‍💻 Authors
-hajar masoudi | maroua el abbady| ghizlan
+hajar masoudi | maroua el abbadi| ghizlan 
 
 🙏 Acknowledgments
 Font Awesome for icons
