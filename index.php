@@ -50,7 +50,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         die("Tous les champs sont obligatoires et le prix doit être un nombre positif.");
     }
 }
+// Modifier un produit
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'modifier') {
+    $id = $_POST['id'] ?? 0;
+    $prix = $_POST['prix'] ?? 0;
 
+    // Validation des données
+    if (is_numeric($prix) && $prix > 0) {
+        // Mise à jour dans la base de données
+        $stmt = $pdo->prepare("UPDATE produits SET prix = ?");
+        $stmt->execute([$prix, $id]);
+
+        header('Location: index.php');
+        exit;
+    } 
+}
 // Supprimer un produit
 if (isset($_GET['supprimer'])) {
     $id = (int)$_GET['supprimer'];
@@ -377,6 +391,7 @@ footer .social-links a:hover {
                             <h3><?php echo htmlspecialchars($produit['nom']); ?></h3>
                             <p><?php echo htmlspecialchars($produit['description']); ?></p>
                             <p><?php echo number_format($produit['prix'], 2); ?> €</p>
+                            <a href="?Modifier=<?php echo $produit['id']; ?>">Modifier</a><br>
                             <a href="?supprimer=<?php echo $produit['id']; ?>">Supprimer</a>
                         </div>
                     </div>
